@@ -5,7 +5,7 @@ export const Navbar = () => {
   return (
     <nav class="navbar nav-ecommerce">
       <div class="navbar-section">
-        <button class="nav-menu-btn">
+        <button class="nav-menu-btn hide-on-desktop">
           <span class="material-icons">menu</span>
         </button>
         <Link class="navbar-brand" to="/">
@@ -27,11 +27,17 @@ export const Navbar = () => {
       </div>
       <div class="navbar-section">
         <ul class="navbar-nav">
+          <li class="nav-item hide-on-mobile">
+            <Link to="/products" class="nav-link">
+              Shop Now
+            </Link>
+          </li>
           <li class="nav-item">
             <button class="nav-link search-icon-mobile">
               <span class="material-icons-outlined">search</span>
             </button>
           </li>
+
           <li class="nav-item">
             <Link to="/wishlist" class="nav-link badge badge-on-icon-sm">
               <i class="material-icons-outlined">favorite_border</i>
@@ -44,13 +50,13 @@ export const Navbar = () => {
               <span class="badge-number">2</span>
             </Link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item hide-on-mobile">
             <Link class="nav-link" to="/profile">
               <i class="material-icons-outlined">person</i>
             </Link>
           </li>
         </ul>
-        <Link to="/login" class="btn btn-secondary btn-sm ml-1 login-btn">
+        <Link to="/login" class="btn btn-secondary btn-sm ml-1 hide-on-mobile">
           Login
         </Link>
       </div>
