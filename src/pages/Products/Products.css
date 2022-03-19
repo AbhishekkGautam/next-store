@@ -1,0 +1,34 @@
+@import "../../index.css";
+
+.products-section {
+  margin: 4rem 0rem;
+  position: relative;
+}
+
+.products-container {
+  position: relative;
+  padding: 0rem;
+  flex: 1 1 0%;
+}
+
+@media only screen and (min-width: 450px) {
+  .products-container {
+    padding: 0 1rem;
+  }
+  .products-section {
+    margin: 8rem 0rem;
+    position: relative;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .products-container {
+    display: flex;
+    position: relative;
+    padding: 0;
+  }
+
+  .products-section {
+    margin: 8rem 2rem 0;
+  }
+}
