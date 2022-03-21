@@ -6,17 +6,20 @@ import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
 import { ProductProvider } from "./context/ProductContext";
 import { FilterProvider } from "./context/FilterContext";
+import { AuthProvider } from "./context/AuthContext";
 // Call make Server
 makeServer();
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ProductProvider>
-        <FilterProvider>
-          <App />
-        </FilterProvider>
-      </ProductProvider>
+      <AuthProvider>
+        <ProductProvider>
+          <FilterProvider>
+            <App />
+          </FilterProvider>
+        </ProductProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
