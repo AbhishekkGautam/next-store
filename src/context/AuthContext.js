@@ -62,7 +62,7 @@ const AuthProvider = ({ children }) => {
           type: "SAVE_USER_INFO",
           payload: foundUser,
         });
-        navigate("/");
+        navigate(-1);
       }
     } catch (error) {
       dispatch({ type: "AUTH_ERROR", payload: error.response });

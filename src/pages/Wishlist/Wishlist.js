@@ -3,9 +3,9 @@ import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
 import { priceAfterDiscount, putCommasInPrice } from "../../helpers";
 import { BsStarFill } from "react-icons/bs";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { deleteFromWishlistService } from "../../services";
+import { deleteFromWishlistService, addToCartService } from "../../services";
 import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Wishlist = () => {
   const {
@@ -16,6 +16,7 @@ export const Wishlist = () => {
     state: { token, isLoggedIn },
   } = useAuth();
 
+  const navigate = useNavigate();
   return (
     <main>
       <section className="wishlist-section card-container">
@@ -83,7 +84,14 @@ export const Wishlist = () => {
                                 {discountInPercentage}% OFF
                               </span>
                             </div>
-                            <button className="btn btn-light btn-sm font-weight-500 move-to-bag">
+                            <button
+                              className="btn btn-light btn-sm font-weight-500 move-to-bag"
+                              onClick={() => {
+                                addToCartService(product, token, dispatch);
+                                deleteFromWishlistService(id, token, dispatch);
+                                navigate("/cart");
+                              }}
+                            >
                               MOVE TO BAG
                             </button>
                           </div>
@@ -101,7 +109,7 @@ export const Wishlist = () => {
                   wishlist
                 </p>
                 <Link className="btn btn-primary-outline btn-sm" to="/products">
-                  Add Products To Wishlist
+                  Add Items To Wishlist
                 </Link>
               </div>
             )}

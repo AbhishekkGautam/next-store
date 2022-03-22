@@ -5,8 +5,8 @@ import {
   REMOVE_FROM_WISHLIST,
   ADD_TO_CART,
   REMOVE_FROM_CART,
-  INCREMENT_QUANTITY,
-  DECREMENT_QUANTITY,
+  UPDATE_QUANTITY,
+  TOTAL_ITEMS_IN_CART,
   WISHLIST_ERROR,
   CART_ERROR,
 } from "./actions";
@@ -22,9 +22,13 @@ export const wishlistAndCartReducer = (state, { type, payload }) => {
     case LOAD_CART_FROM_SERVER:
       return { ...state, cart: payload };
     case ADD_TO_CART:
-      return { ...state, wishlist: payload };
+      return { ...state, cart: payload };
     case REMOVE_FROM_CART:
-      return { ...state, wishlist: payload };
+      return { ...state, cart: payload };
+    case UPDATE_QUANTITY:
+      return { ...state, cart: payload };
+    case TOTAL_ITEMS_IN_CART:
+      return { ...state, totalItemsInCart: payload };
     case WISHLIST_ERROR:
       return { ...state, wishlistError: payload };
     case CART_ERROR:
