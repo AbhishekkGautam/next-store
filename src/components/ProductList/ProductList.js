@@ -10,9 +10,9 @@ import {
   putCommasInPrice,
 } from "../../helpers";
 import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
-import { toggleFavorite } from "../../services";
+import { toggleFavorite, addToCartService } from "../../services";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export const ProductList = () => {
   const {
@@ -24,7 +24,7 @@ export const ProductList = () => {
     state: { token },
   } = useAuth();
   const {
-    state: { wishlist },
+    state: { wishlist, cart },
     dispatch,
   } = useWishlistAndCart();
 
@@ -54,6 +54,9 @@ export const ProductList = () => {
             const price_after_discount = putCommasInPrice(_priceAfterDiscount);
             const isAlreadyInWishlist = wishlist?.find(
               wishlistProduct => wishlistProduct._id === id
+            );
+            const isAlreadyInCart = cart?.find(
+              cartProduct => cartProduct._id === id
             );
             return (
               <div className="products-card" key={id}>
@@ -106,6 +109,25 @@ export const ProductList = () => {
                           {discountInPercentage}% OFF
                         </span>
                       </div>
+                      {isAlreadyInCart ? (
+                        <Link
+                          to="/cart"
+                          className="btn btn-light btn-sm add-to-cart"
+                        >
+                          Go to Cart
+                        </Link>
+                      ) : (
+                        <button
+                          className="btn btn-light btn-sm add-to-cart"
+                          onClick={() =>
+                            token
+                              ? addToCartService(product, token, dispatch)
+                              : navigate("/login")
+                          }
+                        >
+                          Add to Cart
+                        </button>
+                      )}
                     </div>
                   </div>
                   {inStock <= 0 ? (
