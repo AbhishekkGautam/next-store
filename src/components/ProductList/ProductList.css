@@ -24,12 +24,8 @@
   background: var(--red);
 }
 
-.products-card .card-floating-icon span.icon-active {
+.card-floating-icon span.icon-active {
   color: var(--red);
-}
-
-.products-card .card-floating-icon span.icon-active:hover {
-  color: var(--grey);
 }
 
 .products-card .card-with-badge .card-title {

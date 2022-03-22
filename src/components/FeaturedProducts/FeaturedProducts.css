@@ -3,6 +3,9 @@
 .featured-product-container .grid {
   gap: 0rem;
 }
+.card-floating-icon span.icon-active {
+  color: var(--red);
+}
 
 .featured-product-card .card {
   border: 1px solid var(--gray-100);

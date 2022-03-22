@@ -30,8 +30,6 @@ export const FilterSidebar = () => {
     setUniqueBrands(getUniqueValues(products, "brand"));
   }, [products]);
 
-  console.log(state);
-
   return (
     <aside className="sidebar-filter-container">
       <div className="sidebar-header">
