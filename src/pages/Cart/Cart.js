@@ -85,6 +85,7 @@ export const Cart = () => {
                                     <span>Quantity:</span>
                                     <div className="quantity-counter">
                                       <button
+                                        disabled={product.qty === 1}
                                         onClick={() =>
                                           updateQtyService(
                                             id,
