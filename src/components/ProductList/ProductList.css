@@ -24,12 +24,8 @@
   background: var(--red);
 }
 
-.products-card .card-floating-icon span.icon-active {
+.card-floating-icon span.icon-active {
   color: var(--red);
-}
-
-.products-card .card-floating-icon span.icon-active:hover {
-  color: var(--grey);
 }
 
 .products-card .card-with-badge .card-title {
@@ -85,6 +81,14 @@
 
 .products-card .card-body {
   padding: 0.5rem 1rem;
+}
+
+.products-card .card-body .add-to-cart {
+  background: transparent;
+  border: 1px solid var(--gray-100);
+  color: var(--gray-600);
+  font-weight: 400;
+  text-align: center;
 }
 
 @media only screen and (min-width: 768px) {

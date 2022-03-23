@@ -1,12 +1,17 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
 
 export const Navbar = () => {
   const {
     state: { isLoggedIn },
     logoutHandler,
   } = useAuth();
+
+  const {
+    state: { wishlist, cart, totalItemsInCart },
+  } = useWishlistAndCart();
 
   return (
     <nav className="navbar nav-ecommerce">
@@ -47,13 +52,17 @@ export const Navbar = () => {
           <li className="nav-item">
             <Link to="/wishlist" className="nav-link badge badge-on-icon-sm">
               <i className="material-icons-outlined">favorite_border</i>
-              <span className="badge-number">5</span>
+              {isLoggedIn && wishlist?.length > 0 ? (
+                <span className="badge-number">{wishlist.length}</span>
+              ) : null}
             </Link>
           </li>
           <li className="nav-item">
             <Link to="/cart" className="nav-link badge badge-on-icon-sm">
               <i className="material-icons-outlined">shopping_bag</i>
-              <span className="badge-number">2</span>
+              {isLoggedIn && totalItemsInCart > 0 ? (
+                <span className="badge-number">{totalItemsInCart}</span>
+              ) : null}
             </Link>
           </li>
           <li className="nav-item hide-on-mobile">

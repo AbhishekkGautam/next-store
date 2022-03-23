@@ -1,16 +1,28 @@
 import React from "react";
 import "./FeaturedProducts.css";
+import { useNavigate, Link } from "react-router-dom";
 import { useProduct } from "../../context/ProductContext";
 import {
   getFeaturedProducts,
   priceAfterDiscount,
   putCommasInPrice,
 } from "../../helpers";
+import { toggleFavorite } from "../../services";
+import { useAuth } from "../../context/AuthContext";
+import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
+import { addToCartService } from "../../services";
 
 export const FeaturedProducts = () => {
   const { state } = useProduct();
   const { loading, products, error } = state;
-
+  const navigate = useNavigate();
+  const {
+    state: { token },
+  } = useAuth();
+  const {
+    state: { wishlist, cart },
+    dispatch,
+  } = useWishlistAndCart();
   const featuredProducts = getFeaturedProducts(products);
 
   return (
@@ -27,8 +39,13 @@ export const FeaturedProducts = () => {
           ) : (
             featuredProducts &&
             featuredProducts.map(product => {
-              const { id, title, imageSrc, priceInMrp, discountInPercentage } =
-                product;
+              const {
+                _id: id,
+                title,
+                imageSrc,
+                priceInMrp,
+                discountInPercentage,
+              } = product;
               const _priceAfterDiscount = priceAfterDiscount(
                 priceInMrp,
                 discountInPercentage
@@ -36,16 +53,41 @@ export const FeaturedProducts = () => {
               const price_mrp = putCommasInPrice(priceInMrp);
               const price_after_discount =
                 putCommasInPrice(_priceAfterDiscount);
+              const isAlreadyInWishlist = wishlist?.find(
+                wishlistProduct => wishlistProduct._id === id
+              );
+              const isAlreadyInCart = cart?.find(
+                cartProduct => cartProduct._id === id
+              );
               return (
                 <div className="featured-product-card" key={id}>
                   <div className="card ecommerce-card card-with-badge">
                     <div className="card-header">
                       <img src={imageSrc} alt={title} />
                     </div>
-                    <button className="card-floating-icon">
-                      <span className="material-icons-outlined">
-                        favorite_border
-                      </span>
+                    <button
+                      className="card-floating-icon"
+                      onClick={() =>
+                        token
+                          ? toggleFavorite(
+                              isAlreadyInWishlist,
+                              token,
+                              product,
+                              id,
+                              dispatch
+                            )
+                          : navigate("/login")
+                      }
+                    >
+                      {isAlreadyInWishlist ? (
+                        <span className="material-icons-outlined icon-active">
+                          favorite
+                        </span>
+                      ) : (
+                        <span className="material-icons-outlined">
+                          favorite_border
+                        </span>
+                      )}
                     </button>
                     <div className="card-body">
                       <h5 className="card-title">{title}</h5>
@@ -60,6 +102,25 @@ export const FeaturedProducts = () => {
                           {discountInPercentage}% OFF
                         </span>
                       </div>
+                      {isAlreadyInCart ? (
+                        <Link
+                          to="/cart"
+                          className="btn btn-light btn-sm add-to-cart"
+                        >
+                          Go to Cart
+                        </Link>
+                      ) : (
+                        <button
+                          className="btn btn-light btn-sm add-to-cart"
+                          onClick={() =>
+                            token
+                              ? addToCartService(product, token, dispatch)
+                              : navigate("/login")
+                          }
+                        >
+                          Add to Cart
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

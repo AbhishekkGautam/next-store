@@ -3,6 +3,9 @@
 .featured-product-container .grid {
   gap: 0rem;
 }
+.card-floating-icon span.icon-active {
+  color: var(--red);
+}
 
 .featured-product-card .card {
   border: 1px solid var(--gray-100);
@@ -44,6 +47,14 @@
 
 .featured-product-card .card-body {
   padding: 0.5rem 1rem;
+}
+
+.featured-product-card .card-body .add-to-cart {
+  background: transparent;
+  border: 1px solid var(--gray-100);
+  color: var(--gray-600);
+  font-weight: 400;
+  text-align: center;
 }
 
 @media only screen and (min-width: 450px) {

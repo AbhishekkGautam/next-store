@@ -9,12 +9,24 @@ import {
   priceAfterDiscount,
   putCommasInPrice,
 } from "../../helpers";
+import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
+import { toggleFavorite, addToCartService } from "../../services";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate, Link } from "react-router-dom";
 
 export const ProductList = () => {
   const {
     state: { products },
   } = useProduct();
   const { state } = useFilter();
+  const navigate = useNavigate();
+  const {
+    state: { token },
+  } = useAuth();
+  const {
+    state: { wishlist, cart },
+    dispatch,
+  } = useWishlistAndCart();
 
   const sortedProducts = getSortedProducts(products, state);
   const filteredProducts = getFilteredProducts(sortedProducts, state);
@@ -25,7 +37,7 @@ export const ProductList = () => {
         {filteredProducts &&
           filteredProducts.map(product => {
             const {
-              _id,
+              _id: id,
               title,
               brand,
               starRating,
@@ -40,17 +52,42 @@ export const ProductList = () => {
             );
             const price_mrp = putCommasInPrice(priceInMrp);
             const price_after_discount = putCommasInPrice(_priceAfterDiscount);
+            const isAlreadyInWishlist = wishlist?.find(
+              wishlistProduct => wishlistProduct._id === id
+            );
+            const isAlreadyInCart = cart?.find(
+              cartProduct => cartProduct._id === id
+            );
             return (
-              <div className="products-card" key={_id}>
+              <div className="products-card" key={id}>
                 <div className="card ecommerce-card card-with-badge">
                   <div className={inStock <= 0 ? "card-with-text-overlay" : ""}>
                     <div className="card-header">
                       <img src={imageSrc} alt={title} />
                     </div>
-                    <button className="card-floating-icon">
-                      <span className="material-icons-outlined">
-                        favorite_border
-                      </span>
+                    <button
+                      className="card-floating-icon"
+                      onClick={() =>
+                        token
+                          ? toggleFavorite(
+                              isAlreadyInWishlist,
+                              token,
+                              product,
+                              id,
+                              dispatch
+                            )
+                          : navigate("/login")
+                      }
+                    >
+                      {isAlreadyInWishlist ? (
+                        <span className="material-icons-outlined icon-active">
+                          favorite
+                        </span>
+                      ) : (
+                        <span className="material-icons-outlined">
+                          favorite_border
+                        </span>
+                      )}
                     </button>
                     <div className="card-body">
                       <h5 className="card-title">{title}</h5>
@@ -72,10 +109,29 @@ export const ProductList = () => {
                           {discountInPercentage}% OFF
                         </span>
                       </div>
+                      {isAlreadyInCart ? (
+                        <Link
+                          to="/cart"
+                          className="btn btn-light btn-sm add-to-cart"
+                        >
+                          Go to Cart
+                        </Link>
+                      ) : (
+                        <button
+                          className="btn btn-light btn-sm add-to-cart"
+                          onClick={() =>
+                            token
+                              ? addToCartService(product, token, dispatch)
+                              : navigate("/login")
+                          }
+                        >
+                          Add to Cart
+                        </button>
+                      )}
                     </div>
                   </div>
                   {inStock <= 0 ? (
-                    <div class="text-overlay">Out of Stock</div>
+                    <div className="text-overlay">Out of Stock</div>
                   ) : null}
                 </div>
               </div>

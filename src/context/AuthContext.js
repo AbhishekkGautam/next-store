@@ -5,7 +5,7 @@ import { signupService, loginService } from "../services";
 
 const initialState = {
   token: "",
-  userInfo: {},
+  userInfo: null,
   isLoggedIn: false,
   error: "",
 };
@@ -15,7 +15,7 @@ const AuthContext = createContext(initialState);
 const AuthProvider = ({ children }) => {
   const getTokenFromLocalStorage = localStorage.getItem("token") || "";
   const getUserFromLocalStorage =
-    JSON.parse(localStorage.getItem("user")) || "";
+    JSON.parse(localStorage.getItem("user")) || null;
   const [state, dispatch] = useReducer(authReducer, initialState);
   const navigate = useNavigate();
 
@@ -62,7 +62,7 @@ const AuthProvider = ({ children }) => {
           type: "SAVE_USER_INFO",
           payload: foundUser,
         });
-        navigate("/");
+        navigate(-1);
       }
     } catch (error) {
       dispatch({ type: "AUTH_ERROR", payload: error.response });
@@ -77,7 +77,13 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ state, dispatch, signupHandler, loginHandler, logoutHandler }}
+      value={{
+        state,
+        dispatch,
+        signupHandler,
+        loginHandler,
+        logoutHandler,
+      }}
     >
       {children}
     </AuthContext.Provider>
