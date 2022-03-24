@@ -8,6 +8,7 @@ import { ProductProvider } from "./context/ProductContext";
 import { FilterProvider } from "./context/FilterContext";
 import { AuthProvider } from "./context/AuthContext";
 import { WishlistAndCartProvider } from "./context/WishlistAndCartContext";
+import ScrollToTop from "./scrollToTop";
 // Call make Server
 makeServer();
 
@@ -18,6 +19,7 @@ ReactDOM.render(
         <ProductProvider>
           <FilterProvider>
             <WishlistAndCartProvider>
+              <ScrollToTop />
               <App />
             </WishlistAndCartProvider>
           </FilterProvider>

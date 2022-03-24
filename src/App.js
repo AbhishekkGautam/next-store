@@ -4,6 +4,7 @@ import Mockman from "mockman-js";
 import { Navbar } from "./components";
 import { Home, Products, Wishlist, Cart, Login, Signup } from "./pages";
 import { useAuth } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast";
 function App() {
   const {
     state: { isLoggedIn },
@@ -11,6 +12,20 @@ function App() {
 
   return (
     <div className="App">
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          // Define default options
+          className: "",
+          style: {
+            minWidth: "280px",
+          },
+          success: {
+            duration: 2000,
+          },
+        }}
+      />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
