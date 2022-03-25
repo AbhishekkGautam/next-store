@@ -52,6 +52,7 @@
 
 .card.cart-horizontal-card .card-body img {
   width: 30%;
+  object-fit: contain;
 }
 
 .card.cart-horizontal-card .card-title {

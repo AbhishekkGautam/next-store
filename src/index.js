@@ -8,8 +8,8 @@ import { ProductProvider } from "./context/ProductContext";
 import { FilterProvider } from "./context/FilterContext";
 import { AuthProvider } from "./context/AuthContext";
 import { WishlistAndCartProvider } from "./context/WishlistAndCartContext";
-import ScrollToTop from "./scrollToTop";
-// Call make Server
+import ScrollToTop from "./utils/scrollToTop";
+
 makeServer();
 
 ReactDOM.render(
