@@ -8,9 +8,9 @@ export const HeroBanner = () => {
         <div className="hero-img">
           <img className="img-responsive" src={HeroImage} alt="hero-img" />
         </div>
-        <div className="hero-content flex-center flex-col text-center">
+        <div className="hero-content">
           <div className="">
-            <h1 className="hero-title">UPTO 80% OFF</h1>
+            <h1 className="hero-title">Watches, Bands, VR Headsets & More.</h1>
           </div>
           <div className="">
             <p className="hero-description">

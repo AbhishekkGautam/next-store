@@ -11,6 +11,21 @@
   flex: 1 1 0%;
 }
 
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  min-width: 60vw;
+  color: var(--gray-600);
+}
+
 @media only screen and (min-width: 450px) {
   .products-container {
     padding: 0 1rem;

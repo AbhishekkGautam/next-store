@@ -2,6 +2,7 @@
 
 .cart-section {
   margin-top: 6rem;
+  margin-bottom: 1rem;
 }
 
 .cart-container {
@@ -14,14 +15,17 @@
   justify-content: center;
   flex-direction: column;
   min-height: 60vh;
+  color: var(--gray-600);
+  padding: 1rem;
+  text-align: center;
 }
 
 .cart-message-container p {
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
 }
 
 .cart-message-container .btn {
-  margin-top: 2.5rem;
+  margin-top: 3rem;
 }
 
 .cart-container .grid {
@@ -48,6 +52,7 @@
 
 .card.cart-horizontal-card .card-body img {
   width: 30%;
+  object-fit: contain;
 }
 
 .card.cart-horizontal-card .card-title {

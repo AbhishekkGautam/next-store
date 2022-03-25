@@ -16,8 +16,12 @@ export const Login = () => {
 
   const submitLoginFormData = () => {
     loginHandler(email, password);
-    setEmail("");
-    setPassword("");
+  };
+
+  const submitLoginCredentials = () => {
+    setEmail("john@gmail.com");
+    setPassword("johndoe");
+    loginHandler("john@gmail.com", "johndoe");
   };
 
   return (
@@ -70,6 +74,12 @@ export const Login = () => {
                 onClick={submitLoginFormData}
               >
                 Login
+              </button>
+              <button
+                className="btn btn-primary-outline login-btn mt-1"
+                onClick={submitLoginCredentials}
+              >
+                Login with test credentials
               </button>
             </form>
             <div className="create-new-account-link">

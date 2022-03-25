@@ -117,7 +117,7 @@ export const Wishlist = () => {
               </>
             ) : (
               <div className="wishlist-message-container">
-                <h2>Wishlist Empty.</h2>
+                <h3>Wishlist Empty.</h3>
                 <p>
                   Add items that you would like to save for later to your
                   wishlist

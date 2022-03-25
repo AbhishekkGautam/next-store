@@ -28,13 +28,6 @@ export const Signup = () => {
       password !== ""
     ) {
       signupHandler(firstName, lastName, email, password);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-      });
-      setConfirmPassword("");
     }
   };
 

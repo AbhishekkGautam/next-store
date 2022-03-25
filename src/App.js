@@ -4,6 +4,7 @@ import Mockman from "mockman-js";
 import { Navbar } from "./components";
 import { Home, Products, Wishlist, Cart, Login, Signup } from "./pages";
 import { useAuth } from "./context/AuthContext";
+import { ToasterWrapper } from "./utils/ToasterWrapper";
 function App() {
   const {
     state: { isLoggedIn },
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToasterWrapper />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

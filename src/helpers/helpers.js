@@ -1,5 +1,5 @@
 export const getFeaturedProducts = productsArray =>
-  [...productsArray].filter(product => product.featured);
+  [...productsArray].filter(product => product.featured && product.inStock > 0);
 
 export const priceAfterDiscount = (priceInMrp, discountInPercentage) => {
   let discounted_price = Math.trunc(

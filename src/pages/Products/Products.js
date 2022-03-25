@@ -1,5 +1,6 @@
 import "./Products.css";
-import { FilterMobile, FilterSidebar, ProductList } from "../../components";
+import { TailSpin } from "react-loader-spinner";
+import { FilterSidebar, ProductList } from "../../components";
 import { useProduct } from "../../context/ProductContext";
 export const Products = () => {
   const {
@@ -8,9 +9,8 @@ export const Products = () => {
 
   return (
     <main className="main-wrapper">
-      <FilterMobile />
       {loading ? (
-        <p>Loading...</p>
+        <TailSpin color="#2563eb" height={80} width={80} className="loader" />
       ) : error ? (
         <p>{error}</p>
       ) : (
