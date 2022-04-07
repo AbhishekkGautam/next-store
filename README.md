@@ -35,7 +35,7 @@ nextstore is an ecommerce store where people can find wide varieties of smart we
   - user can also remove any video from wishlist.
 - Cart Management
   - user can add product to cart from single video page.
-  - user can increase the quantity of a product.
+  - user can increase/decrease the quantity of a product.
   - user can move the product from cart to wishlist.
   - user can remove a product from the cart.
   - user can see a `summary card` of cart with `total mrp`, `total discount`, `delivery charges`, `final amount to pay` with a `PLACE ORDER` button.
