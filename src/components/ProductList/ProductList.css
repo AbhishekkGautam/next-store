@@ -1,12 +1,13 @@
 .products-grid-container .grid {
   gap: 0rem;
+  margin-top: 8rem;
 }
 
 .products-card .card {
   width: 100%;
   transition: all 0.3s ease;
   overflow: hidden;
-  cursor: pointer;
+  cursor: default;
   border: 1px solid var(--gray-50);
   border-radius: 0;
 }
@@ -17,6 +18,12 @@
 
 .products-card .card-header img {
   object-fit: contain;
+  cursor: pointer;
+  transition: 0.3s ease-out;
+}
+
+.products-card .card-header img:hover {
+  transform: scale(1.08);
 }
 
 .products-card .card-with-badge .card-badge {
@@ -30,6 +37,12 @@
 
 .products-card .card-with-badge .card-title {
   font-size: 1rem;
+  transition: 0.3s ease-out;
+  cursor: pointer;
+}
+
+.products-card .card-with-badge .card-title:hover {
+  color: var(--primary-color);
 }
 
 .products-card .card-with-badge .brand-title {

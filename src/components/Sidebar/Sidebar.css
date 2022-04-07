@@ -1,6 +1,6 @@
 .sidebar-bg {
   width: 100vw;
-  z-index: 999;
+  z-index: 5;
   visibility: hidden;
   opacity: 0;
   height: 100vh;
