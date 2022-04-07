@@ -25,6 +25,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 export const TOTAL_ITEMS_IN_CART = "TOTAL_ITEMS_IN_CART";
+export const APPLY_COUPON = "APPLY_COUPON";
 export const WISHLIST_ERROR = "WISHLIST_ERROR";
 export const CART_ERROR = "CART_ERROR";
 export const SHOW_TOAST = "SHOW_TOAST";

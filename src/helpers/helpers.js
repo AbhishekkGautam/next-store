@@ -140,10 +140,20 @@ export const getTotalAmount = cart => {
 export const getTotalDiscountOnMrp = (totalMrp, amountAfterDiscount) =>
   totalMrp - amountAfterDiscount;
 
-export const getFinalAmountToPay = totalAmountAfterDiscount => {
-  if (totalAmountAfterDiscount < 2000) {
-    return totalAmountAfterDiscount + 50;
-  } else {
-    return totalAmountAfterDiscount;
+export const getFinalAmountToPay = (
+  totalAmountAfterDiscount,
+  couponDiscount
+) => {
+  let finalAmount = 0;
+  if (totalAmountAfterDiscount > 2000 && couponDiscount === 0) {
+    finalAmount = totalAmountAfterDiscount;
   }
+  if (totalAmountAfterDiscount < 2000) {
+    finalAmount = totalAmountAfterDiscount + 50;
+  }
+  if (totalAmountAfterDiscount > 2500) {
+    finalAmount = totalAmountAfterDiscount - couponDiscount;
+  }
+
+  return finalAmount;
 };

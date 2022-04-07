@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+import { IoClose } from "react-icons/io5";
 import "./Cart.css";
 import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
 import {
@@ -15,15 +17,19 @@ import {
   deleteFromCartService,
   updateQtyService,
 } from "../../services";
+import { CouponModal } from "../../components";
 
 export const Cart = () => {
+  const [showCouponModal, setShowCouponModal] = useState(false);
   const {
-    state: { cart, totalItemsInCart },
+    state: { cart, totalItemsInCart, applyCoupon },
     dispatch,
   } = useWishlistAndCart();
   const {
     state: { token, isLoggedIn },
   } = useAuth();
+
+  const { code, discount } = applyCoupon;
 
   const totalMrpInCart = getTotalMrpInCart(cart);
   const totalAmountAfterDiscount = getTotalAmount(cart);
@@ -31,7 +37,25 @@ export const Cart = () => {
     totalMrpInCart,
     totalAmountAfterDiscount
   );
-  const finalAmountToPay = getFinalAmountToPay(totalAmountAfterDiscount);
+  const finalAmountToPay = getFinalAmountToPay(
+    totalAmountAfterDiscount,
+    discount
+  );
+
+  useEffect(() => {
+    if (
+      (totalAmountAfterDiscount < 2500 && code === "SUMMER100") ||
+      (totalAmountAfterDiscount < 4000 && code === "BIGBONUS500")
+    ) {
+      dispatch({
+        type: "APPLY_COUPON",
+        payload: {
+          code: "",
+          discount: 0,
+        },
+      });
+    }
+  }, [totalAmountAfterDiscount]);
 
   return (
     <main className="main-wrapper">
@@ -142,7 +166,7 @@ export const Cart = () => {
                         })}
                     </div>
                     <div className="cart-grid-items">
-                      <div className="cart-summary">
+                      <div className="cart-summary coupon-section">
                         <div className="card">
                           <div className="card-header">
                             <p className="card-title">
@@ -174,9 +198,41 @@ export const Cart = () => {
                             </div>
                             <div className="card-item">
                               <p className="card-text">Coupon Discount</p>
-                              <button className="apply-coupon">
-                                Apply Coupon
-                              </button>
+
+                              {code === "" ? (
+                                <button
+                                  className="apply-coupon"
+                                  onClick={() =>
+                                    setShowCouponModal(!showCouponModal)
+                                  }
+                                >
+                                  Apply Coupon
+                                </button>
+                              ) : (
+                                <div className="applied-coupon">
+                                  {code}
+                                  <IoClose
+                                    className="cancel-coupon-icon"
+                                    onClick={() =>
+                                      dispatch({
+                                        type: "APPLY_COUPON",
+                                        payload: {
+                                          code: "",
+                                          discount: 0,
+                                        },
+                                      })
+                                    }
+                                  />
+                                </div>
+                              )}
+
+                              <CouponModal
+                                showCouponModal={showCouponModal}
+                                setShowCouponModal={setShowCouponModal}
+                                totalAmountAfterDiscount={
+                                  totalAmountAfterDiscount
+                                }
+                              />
                             </div>
                           </div>
                           <hr className="divider" />
