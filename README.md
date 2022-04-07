@@ -42,6 +42,7 @@ nextstore is an ecommerce store where people can find wide varieties of smart we
 - User profile page
 - Search by keyword & category.
 - Single Product Page.
+- Apply Coupons
 - Loading & Alerts.
 
 ## Tech Stack Used
