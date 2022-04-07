@@ -9,6 +9,7 @@ import {
   TOTAL_ITEMS_IN_CART,
   WISHLIST_ERROR,
   CART_ERROR,
+  APPLY_COUPON,
 } from "./actions";
 
 export const wishlistAndCartReducer = (state, { type, payload }) => {
@@ -33,6 +34,8 @@ export const wishlistAndCartReducer = (state, { type, payload }) => {
       return { ...state, wishlistError: payload };
     case CART_ERROR:
       return { ...state, cartError: payload };
+    case APPLY_COUPON:
+      return { ...state, applyCoupon: payload };
     default:
       return state;
   }

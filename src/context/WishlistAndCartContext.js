@@ -7,6 +7,10 @@ import { useAuth } from "./AuthContext";
 const initialState = {
   wishlist: [],
   cart: [],
+  applyCoupon: {
+    code: "",
+    discount: 0,
+  },
   totalItemsInCart: 0,
   wishlistError: "",
   cartError: "",

@@ -6,3 +6,4 @@ export { FeaturedProducts } from "./FeaturedProducts/FeaturedProducts";
 export { FilterMobile } from "./FilterMobile/FilterMobile";
 export { FilterSidebar } from "./FilterSidebar/FilterSidebar";
 export { ProductList } from "./ProductList/ProductList";
+export { CouponModal } from "./CouponModal/CouponModal";
