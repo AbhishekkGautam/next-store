@@ -16,6 +16,8 @@
   --black: #000000;
   --white: #fff;
   --bg-clr-gray: #f7f7f7;
+  --modal-bg-100: rgba(0, 0, 0, 0.4);
+  --modal-bg-300: rgba(0, 0, 0, 0.8);
 }
 
 body {

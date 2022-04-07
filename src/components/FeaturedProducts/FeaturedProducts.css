@@ -10,6 +10,7 @@
 .featured-product-card .card {
   border: 1px solid var(--gray-100);
   border-radius: 0;
+  cursor: default;
 }
 
 .featured-product-card .card-header {
@@ -18,6 +19,12 @@
 
 .featured-product-card .card-header img {
   object-fit: contain;
+  cursor: pointer;
+  transition: 0.3s ease-out;
+}
+
+.featured-product-card .card-header img:hover {
+  transform: scale(1.08);
 }
 
 .featured-product-card .card-with-badge .card-badge {
@@ -27,6 +34,12 @@
 
 .featured-product-card .card-with-badge .card-title {
   font-size: 1rem;
+  transition: 0.3s ease-out;
+  cursor: pointer;
+}
+
+.featured-product-card .card-with-badge .card-title:hover {
+  color: var(--primary-color);
 }
 
 .featured-product-card .price-after-discount {

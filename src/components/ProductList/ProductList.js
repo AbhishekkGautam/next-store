@@ -8,9 +8,10 @@ import {
   getFilteredProducts,
   priceAfterDiscount,
   putCommasInPrice,
+  getSearchedProducts,
 } from "../../helpers";
 import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
-import { toggleFavorite, addToCartService } from "../../services";
+import { toggleFavorite } from "../../services";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -24,18 +25,19 @@ export const ProductList = () => {
     state: { token },
   } = useAuth();
   const {
-    state: { wishlist, cart },
+    state: { wishlist },
     dispatch,
   } = useWishlistAndCart();
 
-  const sortedProducts = getSortedProducts(products, state);
+  const searchedProduct = getSearchedProducts(products, state);
+  const sortedProducts = getSortedProducts(searchedProduct, state);
   const filteredProducts = getFilteredProducts(sortedProducts, state);
 
   return (
     <div className="products-grid-container">
       {filteredProducts.length === 0 ? (
         <div className="product-not-found">
-          <h3>No Product Found 😞</h3>
+          <h3>No Product Found.</h3>
         </div>
       ) : (
         <div className="grid grid-col-2">
@@ -61,18 +63,18 @@ export const ProductList = () => {
               const isAlreadyInWishlist = wishlist?.find(
                 wishlistProduct => wishlistProduct._id === id
               );
-              const isAlreadyInCart = cart?.find(
-                cartProduct => cartProduct._id === id
-              );
+
               return (
                 <div className="products-card" key={id}>
                   <div className="card ecommerce-card card-with-badge">
                     <div
                       className={inStock <= 0 ? "card-with-text-overlay" : ""}
                     >
-                      <div className="card-header">
-                        <img src={imageSrc} alt={title} />
-                      </div>
+                      <Link to={`/product/${id}`}>
+                        <div className="card-header">
+                          <img src={imageSrc} alt={title} />
+                        </div>
+                      </Link>
                       <button
                         className="card-floating-icon"
                         onClick={() =>
@@ -98,7 +100,9 @@ export const ProductList = () => {
                         )}
                       </button>
                       <div className="card-body">
-                        <h5 className="card-title">{title}</h5>
+                        <Link to={`/product/${id}`}>
+                          <h5 className="card-title">{title}</h5>
+                        </Link>
                         <div className="brand-star-container">
                           <span className="brand-title">{brand}</span>
                           <span className="rating">
@@ -117,25 +121,6 @@ export const ProductList = () => {
                             {discountInPercentage}% OFF
                           </span>
                         </div>
-                        {isAlreadyInCart ? (
-                          <Link
-                            to="/cart"
-                            className="btn btn-light btn-sm add-to-cart"
-                          >
-                            Go to Cart
-                          </Link>
-                        ) : (
-                          <button
-                            className="btn btn-light btn-sm add-to-cart"
-                            onClick={() =>
-                              token
-                                ? addToCartService(product, token, dispatch)
-                                : navigate("/login")
-                            }
-                          >
-                            Add to Cart
-                          </button>
-                        )}
                       </div>
                     </div>
                     {inStock <= 0 ? (

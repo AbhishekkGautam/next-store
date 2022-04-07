@@ -4,19 +4,24 @@
 
 @media only screen and (min-width: 1024px) {
   .sidebar-filter-container::-webkit-scrollbar {
-    display: none;
+    background-color: var(--white);
+    width: 6px;
+  }
+
+  .sidebar-filter-container::-webkit-scrollbar-thumb {
+    background-color: var(--gray-100);
   }
 
   .sidebar-filter-container {
     display: block;
     position: sticky;
     width: auto;
-    height: auto;
-    top: 0rem;
+    height: calc(100vh - 8rem);
+    top: 8rem;
     flex: 0 0 20%;
     padding-right: 1rem;
-    margin: 0 2rem 0 0;
-    overflow-y: auto;
+    margin: 8rem 2rem 0 0;
+    overflow-y: scroll;
   }
 
   .sidebar-filter-container .sidebar-header {

@@ -131,7 +131,7 @@ export const FilterSidebar = () => {
                 <input
                   className="radio-btn"
                   type="radio"
-                  name="sort"
+                  name="sort2"
                   checked={sortBy && sortBy === "PRICE_LOW_TO_HIGH"}
                   onChange={() =>
                     dispatch({ type: "SORT_BY", payload: "PRICE_LOW_TO_HIGH" })
@@ -187,7 +187,7 @@ export const FilterSidebar = () => {
                   className="checkbox"
                   id="3-and-above"
                   type="radio"
-                  name="rating"
+                  name="rating2"
                   checked={rating && rating === 3}
                   onChange={() =>
                     dispatch({ type: "FILTER_BY_RATING", payload: 3 })
@@ -202,7 +202,7 @@ export const FilterSidebar = () => {
                   className="checkbox"
                   id="2-and-above"
                   type="radio"
-                  name="rating"
+                  name="rating3"
                   checked={rating && rating === 2}
                   onChange={() =>
                     dispatch({ type: "FILTER_BY_RATING", payload: 2 })
@@ -217,7 +217,7 @@ export const FilterSidebar = () => {
                   className="checkbox"
                   id="1-and-above"
                   type="radio"
-                  name="rating"
+                  name="rating4"
                   checked={rating && rating === 1}
                   onChange={() =>
                     dispatch({ type: "FILTER_BY_RATING", payload: 1 })

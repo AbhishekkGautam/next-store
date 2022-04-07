@@ -28,6 +28,26 @@ export const getMaxPriceForFilter = products => {
   return Math.max(...priceAfterDiscountArr);
 };
 
+export const getSearchedProducts = (products, state) => {
+  if (state.search !== "") {
+    let searchedProducts = [];
+    searchedProducts.push(
+      ...products.filter(product => {
+        return product.title.toLowerCase().includes(state.search.toLowerCase());
+      })
+    );
+    searchedProducts.push(
+      ...products.filter(product => {
+        return product.categoryName
+          .toLowerCase()
+          .includes(state.search.toLowerCase());
+      })
+    );
+    return searchedProducts;
+  }
+  return products;
+};
+
 export const getSortedProducts = (products, state) => {
   const { sortBy } = state;
   if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
@@ -91,6 +111,9 @@ export const getFilteredProducts = (products, state) => {
   }
   return tempProducts;
 };
+
+export const getProductById = (products, productId) =>
+  products?.find(product => product._id === productId);
 
 export const totalItemsInCart = cart => {
   return [...cart].reduce((acc, curr) => (acc = acc + curr.qty), 0);
