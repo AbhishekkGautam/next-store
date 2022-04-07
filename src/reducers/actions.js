@@ -2,6 +2,7 @@ export const LOAD_ALL_PRODUCTS = "LOAD_ALL_PRODUCTS";
 export const LOADING = "LOADING";
 export const ERROR = "ERROR";
 export const LOAD_MAX_PRICE = "LOAD_MAX_PRICE";
+export const FILTER_BY_SEARCH = "FILTER_BY_SEARCH";
 export const FILTER_BY_CATEGORIES = "FILTER_BY_CATEGORIES";
 export const FILTER_BY_BRANDS = "FILTER_BY_BRANDS";
 export const FILTER_BY_PRICE = "FILTER_BY_PRICE";

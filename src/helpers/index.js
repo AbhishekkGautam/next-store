@@ -6,9 +6,11 @@ export {
   getMaxPriceForFilter,
   getSortedProducts,
   getFilteredProducts,
+  getProductById,
   totalItemsInCart,
   getTotalMrpInCart,
   getTotalAmount,
   getTotalDiscountOnMrp,
   getFinalAmountToPay,
+  getSearchedProducts,
 } from "./helpers";

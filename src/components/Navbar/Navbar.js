@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { IoClose } from "react-icons/io5";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
 import { Sidebar } from "../Sidebar/Sidebar";
+import { useFilter } from "../../context/FilterContext";
 
 export const Navbar = () => {
   const {
@@ -15,9 +17,30 @@ export const Navbar = () => {
     state: { wishlist, totalItemsInCart },
   } = useWishlistAndCart();
 
+  const navigate = useNavigate();
+
+  const { dispatch } = useFilter();
+
+  const { pathname } = useLocation();
+
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
+
+  const toggleSearchModal = () => {
+    setShowSearchModal(!showSearchModal);
+  };
+
+  const searchBtnHandler = () => {
+    if (pathname === "/products") {
+      dispatch({ type: "FILTER_BY_SEARCH", payload: searchQuery });
+    } else {
+      dispatch({ type: "FILTER_BY_SEARCH", payload: searchQuery });
+      navigate("/products");
+    }
+  };
 
   return (
     <div className="">
@@ -38,17 +61,20 @@ export const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-section">
-          <form action="#" className="nav-form">
-            <input
-              type="search"
-              placeholder="search"
-              className="search-input"
-              required
-            />
-            <button className="search-btn">
-              <span className="material-icons">search</span>
-            </button>
-          </form>
+          {pathname === "/login" || pathname === "/signup" ? null : (
+            <form className="nav-form" onSubmit={e => e.preventDefault()}>
+              <input
+                type="search"
+                placeholder="search"
+                className="search-input"
+                value={searchQuery || ""}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+              <button className="search-btn" onClick={searchBtnHandler}>
+                <span className="material-icons">search</span>
+              </button>
+            </form>
+          )}
         </div>
         <div className="navbar-section">
           <ul className="navbar-nav">
@@ -57,11 +83,18 @@ export const Navbar = () => {
                 Shop Now
               </Link>
             </li>
-            <li className="nav-item">
-              <button className="nav-link search-icon-mobile">
-                <span className="material-icons-outlined">search</span>
-              </button>
-            </li>
+            {pathname === "/login" || pathname === "/signup" ? null : (
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <button
+                    className="nav-link search-icon-mobile"
+                    onClick={toggleSearchModal}
+                  >
+                    <span className="material-icons-outlined">search</span>
+                  </button>
+                </li>
+              </ul>
+            )}
 
             <li className="nav-item">
               <Link to="/wishlist" className="nav-link badge badge-on-icon-sm">
@@ -103,6 +136,47 @@ export const Navbar = () => {
           )}
         </div>
       </nav>
+      <div
+        className={showSearchModal ? "search-modal-bg" : "search-modal-bg hide"}
+      >
+        <div
+          className={
+            showSearchModal
+              ? "search-slide-modal search-modal search-slide-modal-show"
+              : "search-modal search-slide-modal"
+          }
+        >
+          <div className="search-modal-top">
+            <p className="search-modal-title">
+              Search videos related to coding.
+            </p>
+            <IoClose onClick={toggleSearchModal} />
+          </div>
+          <div className="">
+            <form
+              className="search-mobile nav-form"
+              onSubmit={e => e.preventDefault()}
+            >
+              <input
+                type="search"
+                placeholder="search..."
+                className="search-input"
+                value={searchQuery || ""}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+              <button
+                className="search-btn"
+                onClick={() => {
+                  searchBtnHandler();
+                  toggleSearchModal();
+                }}
+              >
+                <span className="material-icons">search</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
       <Sidebar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
     </div>
   );

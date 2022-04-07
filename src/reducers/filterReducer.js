@@ -1,5 +1,6 @@
 import {
   LOAD_MAX_PRICE,
+  FILTER_BY_SEARCH,
   FILTER_BY_CATEGORIES,
   FILTER_BY_BRANDS,
   FILTER_BY_PRICE,
@@ -23,6 +24,8 @@ export const filterReducer = (state, { type, payload }) => {
         price: max_price,
       };
     }
+    case FILTER_BY_SEARCH:
+      return { ...state, search: payload };
     case FILTER_BY_CATEGORIES:
       return state.categories.includes(payload)
         ? {
@@ -69,6 +72,7 @@ export const filterReducer = (state, { type, payload }) => {
     case CLEAR_ALL_FILTERS:
       return {
         ...state,
+        search: "",
         sortBy: "",
         categories: [],
         brands: [],
