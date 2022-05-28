@@ -59,7 +59,7 @@ export const filterReducer = (state, { type, payload }) => {
         return { ...state, sortBy: "PRICE_HIGH_TO_LOW" };
       if (payload === "PRICE_LOW_TO_HIGH")
         return { ...state, sortBy: "PRICE_LOW_TO_HIGH" };
-      return { ...state, sortBy: "" };
+      return { ...state, sortBy: "RELEVANCE" };
     }
     case FILTER_BY_CASH_ON_DELIVERY: {
       return { ...state, cashOnDelivery: payload };
@@ -73,7 +73,7 @@ export const filterReducer = (state, { type, payload }) => {
       return {
         ...state,
         search: "",
-        sortBy: "",
+        sortBy: "RELEVANCE",
         categories: [],
         brands: [],
         maxPrice: state.maxPrice,

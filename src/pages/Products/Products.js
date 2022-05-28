@@ -7,12 +7,14 @@ export const Products = () => {
     state: { loading, error },
   } = useProduct();
 
+  console.log(error);
+
   return (
     <main className="main-wrapper">
       {loading ? (
         <TailSpin color="#2563eb" height={80} width={80} className="loader" />
       ) : error ? (
-        <p>{error}</p>
+        <p>{error.message}</p>
       ) : (
         <>
           <section className="products-section products-container">

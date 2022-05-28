@@ -33,17 +33,21 @@ export const getSearchedProducts = (products, state) => {
     let searchedProducts = [];
     searchedProducts.push(
       ...products.filter(product => {
-        return product.title.toLowerCase().includes(state.search.toLowerCase());
-      })
-    );
-    searchedProducts.push(
-      ...products.filter(product => {
         return product.categoryName
           .toLowerCase()
           .includes(state.search.toLowerCase());
       })
     );
-    return searchedProducts;
+    searchedProducts.push(
+      ...products.filter(product => {
+        return (
+          product.title.toLowerCase().includes(state.search.toLowerCase()) &&
+          !searchedProducts.includes(product)
+        );
+      })
+    );
+    products = searchedProducts;
+    return products;
   }
   return products;
 };

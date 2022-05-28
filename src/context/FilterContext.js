@@ -4,7 +4,7 @@ import { useProduct } from "./ProductContext";
 
 const initialState = {
   search: "",
-  sortBy: "",
+  sortBy: "RELEVANCE",
   categories: [],
   brands: [],
   minPrice: 0,

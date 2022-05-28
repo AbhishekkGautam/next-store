@@ -12,3 +12,5 @@ export {
   deleteFromCartService,
   updateQtyService,
 } from "./cart/cartService";
+
+export { getSingleProductService } from "./product/singleProductService";
