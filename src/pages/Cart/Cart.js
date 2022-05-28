@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
+import { v4 as uuid } from "uuid";
 import "./Cart.css";
 import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
 import {
@@ -11,9 +12,10 @@ import {
   getFinalAmountToPay,
 } from "../../helpers";
 import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   addToWishlistService,
+  clearCartService,
   deleteFromCartService,
   updateQtyService,
 } from "../../services";
@@ -26,8 +28,9 @@ export const Cart = () => {
     dispatch,
   } = useWishlistAndCart();
   const {
-    state: { token, isLoggedIn },
+    state: { token, isLoggedIn, userInfo },
   } = useAuth();
+  const navigate = useNavigate();
 
   const { code, discount } = applyCoupon;
 
@@ -56,6 +59,57 @@ export const Cart = () => {
       });
     }
   }, [totalAmountAfterDiscount]);
+
+  const loadScript = async src => {
+    return new Promise(resolve => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  const proceedToPay = () => {
+    razorpayCheckout();
+  };
+
+  const razorpayCheckout = async () => {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const options = {
+      key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+      currency: "INR",
+      amount: finalAmountToPay * 100,
+      name: "nextstore",
+      description: "Thank you for shopping with us",
+      theme: { color: "#2563eb" },
+      handler: function (response) {
+        const paymentId = response.razorpay_payment_id;
+        const orderId = uuid();
+        clearCartService(token, dispatch);
+        navigate("/order-summary", { state: { orderId } });
+      },
+      prefill: {
+        name: userInfo.firstName,
+        email: "gaurav.kumar@example.com",
+        contact: "9999999999",
+      },
+    };
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
 
   return (
     <main className="main-wrapper">
@@ -247,7 +301,12 @@ export const Cart = () => {
                         </div>
                       </div>
                       <div className="checkout-btn">
-                        <button className="btn btn-primary">PLACE ORDER</button>
+                        <button
+                          className="btn btn-primary"
+                          onClick={proceedToPay}
+                        >
+                          PLACE ORDER
+                        </button>
                       </div>
                     </div>
                   </div>

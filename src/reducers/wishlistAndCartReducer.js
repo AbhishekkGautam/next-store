@@ -10,6 +10,7 @@ import {
   WISHLIST_ERROR,
   CART_ERROR,
   APPLY_COUPON,
+  RESET_CART,
 } from "./actions";
 
 export const wishlistAndCartReducer = (state, { type, payload }) => {
@@ -36,6 +37,16 @@ export const wishlistAndCartReducer = (state, { type, payload }) => {
       return { ...state, cartError: payload };
     case APPLY_COUPON:
       return { ...state, applyCoupon: payload };
+    case RESET_CART:
+      return {
+        ...state,
+        cart: payload,
+        totalItemsInCart: 0,
+        applyCoupon: {
+          code: "",
+          discount: 0,
+        },
+      };
     default:
       return state;
   }

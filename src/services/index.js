@@ -11,4 +11,7 @@ export {
   addToCartService,
   deleteFromCartService,
   updateQtyService,
+  clearCartService,
 } from "./cart/cartService";
+
+export { getSingleProductService } from "./product/singleProductService";

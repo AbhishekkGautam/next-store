@@ -117,6 +117,20 @@ export const FilterSidebar = () => {
                 <input
                   className="radio-btn"
                   type="radio"
+                  name="sortr"
+                  checked={sortBy && sortBy === "RELEVANCE"}
+                  onChange={() =>
+                    dispatch({ type: "SORT_BY", payload: "RELEVANCE" })
+                  }
+                />
+                Relevance
+              </label>
+            </li>
+            <li>
+              <label className="radio-label">
+                <input
+                  className="radio-btn"
+                  type="radio"
                   name="sort"
                   checked={sortBy && sortBy === "PRICE_HIGH_TO_LOW"}
                   onChange={() =>

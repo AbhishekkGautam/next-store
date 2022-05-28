@@ -6,3 +6,4 @@ export { Login } from "./Login/Login";
 export { Signup } from "./Signup/Signup";
 export { SingleProduct } from "./SingleProduct/SingleProduct";
 export { Profile } from "./Profile/Profile";
+export { OrderSummary } from "./OrderSummary/OrderSummary";

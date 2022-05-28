@@ -148,7 +148,7 @@ export const Navbar = () => {
         >
           <div className="search-modal-top">
             <p className="search-modal-title">
-              Search videos related to coding.
+              Search products using category or title.
             </p>
             <IoClose onClick={toggleSearchModal} />
           </div>
@@ -159,7 +159,7 @@ export const Navbar = () => {
             >
               <input
                 type="search"
-                placeholder="search..."
+                placeholder="Search..."
                 className="search-input"
                 value={searchQuery || ""}
                 onChange={e => setSearchQuery(e.target.value)}

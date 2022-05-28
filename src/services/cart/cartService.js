@@ -90,3 +90,18 @@ export const updateQtyService = async (
     dispatch({ type: "CART_ERROR", paylaod: error.response });
   }
 };
+
+export const clearCartService = async (token, dispatch) => {
+  try {
+    const { data, status } = await axios.post(
+      "/api/user/cart/clearCart",
+      {},
+      { headers: { authorization: token } }
+    );
+    if (status === 201) {
+      dispatch({ type: "RESET_CART", payload: data.cart });
+    }
+  } catch (error) {
+    dispatch({ type: "CART_ERROR", paylaod: error.response });
+  }
+};

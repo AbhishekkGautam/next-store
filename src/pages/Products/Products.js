@@ -12,7 +12,7 @@ export const Products = () => {
       {loading ? (
         <TailSpin color="#2563eb" height={80} width={80} className="loader" />
       ) : error ? (
-        <p>{error}</p>
+        <p>{error.message}</p>
       ) : (
         <>
           <section className="products-section products-container">

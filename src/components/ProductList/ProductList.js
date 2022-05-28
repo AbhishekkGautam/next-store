@@ -45,6 +45,7 @@ export const ProductList = () => {
             filteredProducts.map(product => {
               const {
                 _id: id,
+                id: uid,
                 title,
                 brand,
                 starRating,
@@ -70,11 +71,13 @@ export const ProductList = () => {
                     <div
                       className={inStock <= 0 ? "card-with-text-overlay" : ""}
                     >
-                      <Link to={`/product/${id}`}>
-                        <div className="card-header">
-                          <img src={imageSrc} alt={title} />
-                        </div>
-                      </Link>
+                      <div
+                        className="card-header"
+                        onClick={() => navigate(`/product/${uid}`)}
+                      >
+                        <img src={imageSrc} alt={title} />
+                      </div>
+
                       <button
                         className="card-floating-icon"
                         onClick={() =>
@@ -100,7 +103,7 @@ export const ProductList = () => {
                         )}
                       </button>
                       <div className="card-body">
-                        <Link to={`/product/${id}`}>
+                        <Link to={`/product/${uid}`}>
                           <h5 className="card-title">{title}</h5>
                         </Link>
                         <div className="brand-star-container">
