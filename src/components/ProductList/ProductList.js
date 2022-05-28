@@ -103,7 +103,7 @@ export const ProductList = () => {
                         )}
                       </button>
                       <div className="card-body">
-                        <Link to={`/product/${id}`}>
+                        <Link to={`/product/${uid}`}>
                           <h5 className="card-title">{title}</h5>
                         </Link>
                         <div className="brand-star-container">

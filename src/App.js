@@ -11,6 +11,7 @@ import {
   Signup,
   SingleProduct,
   Profile,
+  OrderSummary,
 } from "./pages";
 import { useAuth } from "./context/AuthContext";
 import { ToasterWrapper } from "./utils/ToasterWrapper";
@@ -30,6 +31,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/product/:productId" element={<SingleProduct />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/order-summary" element={<OrderSummary />} />
         {!isLoggedIn && <Route path="/signup" element={<Signup />} />}
         {!isLoggedIn && <Route path="/login" element={<Login />} />}
         <Route path="/mock" element={<Mockman />} />

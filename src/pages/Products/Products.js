@@ -7,8 +7,6 @@ export const Products = () => {
     state: { loading, error },
   } = useProduct();
 
-  console.log(error);
-
   return (
     <main className="main-wrapper">
       {loading ? (

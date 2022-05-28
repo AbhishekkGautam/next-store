@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsStarFill } from "react-icons/bs";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { useProduct } from "../../context/ProductContext";
-import { getProductById } from "../../helpers";
+import { TailSpin } from "react-loader-spinner";
 import "./SingleProduct.css";
 import { priceAfterDiscount, putCommasInPrice } from "../../helpers";
 import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
@@ -20,11 +19,9 @@ export const SingleProduct = () => {
   const [error, setError] = useState("");
   const [inCart, setInCart] = useState(false);
   const [inWishlist, setInWishlist] = useState(false);
+
   const {
-    state: { products },
-  } = useProduct();
-  const {
-    state: { token, userInfo },
+    state: { token },
   } = useAuth();
   const {
     state: { wishlist, cart },
@@ -63,10 +60,12 @@ export const SingleProduct = () => {
 
   return (
     <main className="main-wrapper">
-      {isLoading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <div className="single-product-wrapper">
+      <div className="single-product-wrapper">
+        {isLoading ? (
+          <div className="loader">
+            <TailSpin color="#2563eb" height={80} width={80} />
+          </div>
+        ) : (
           <div className="single-product-container">
             <div className="product-image-section">
               <div className="single-product-img">
@@ -138,8 +137,8 @@ export const SingleProduct = () => {
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </main>
   );
 };

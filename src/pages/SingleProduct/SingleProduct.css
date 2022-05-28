@@ -7,6 +7,14 @@
   padding-bottom: 2rem;
 }
 
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 80vh;
+}
+
 .single-product-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -136,5 +144,13 @@
   .product-info-section {
     margin-top: 2rem;
     max-width: 100%;
+    margin: 2rem 0 0 4rem;
+  }
+  .product-image-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
   }
 }

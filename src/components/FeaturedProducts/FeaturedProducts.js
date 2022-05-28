@@ -34,12 +34,13 @@ export const FeaturedProducts = () => {
           {loading ? (
             <p>Loading...</p>
           ) : error ? (
-            <p>{error}</p>
+            <p>{error.message}</p>
           ) : (
             featuredProducts &&
             featuredProducts.map(product => {
               const {
                 _id: id,
+                id: uid,
                 title,
                 imageSrc,
                 priceInMrp,
@@ -59,7 +60,7 @@ export const FeaturedProducts = () => {
               return (
                 <div className="featured-product-card" key={id}>
                   <div className="card ecommerce-card card-with-badge">
-                    <Link to={`product/${id}`}>
+                    <Link to={`product/${uid}`}>
                       <div className="card-header">
                         <img src={imageSrc} alt={title} />
                       </div>
@@ -89,7 +90,7 @@ export const FeaturedProducts = () => {
                       )}
                     </button>
                     <div className="card-body">
-                      <Link to={`product/${id}`}>
+                      <Link to={`product/${uid}`}>
                         <h5 className="card-title">{title}</h5>
                       </Link>
                       <div className="card-price">
