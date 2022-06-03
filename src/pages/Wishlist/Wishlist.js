@@ -106,7 +106,7 @@ export const Wishlist = () => {
                                 navigate("/cart");
                               }}
                             >
-                              MOVE TO BAG
+                              MOVE TO CART
                             </button>
                           </div>
                         </div>
