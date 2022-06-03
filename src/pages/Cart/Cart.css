@@ -112,7 +112,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  color: var(--gray-600);
+}
+
+.material-icons-outlined.delete-icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--gray-600);
 }
 
 .cart-horizontal-card .card-footer .btn-light {
