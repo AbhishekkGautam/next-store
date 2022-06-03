@@ -30,3 +30,4 @@ export const WISHLIST_ERROR = "WISHLIST_ERROR";
 export const CART_ERROR = "CART_ERROR";
 export const SHOW_TOAST = "SHOW_TOAST";
 export const RESET_CART = "RESET_CART";
+export const RESET_WISHLIST_AND_CART = "RESET_WISHLIST_AND_CART";

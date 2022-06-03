@@ -64,7 +64,7 @@
 
 .featured-product-card .card-body .add-to-cart {
   background: transparent;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-300);
   color: var(--gray-600);
   font-weight: 400;
   text-align: center;

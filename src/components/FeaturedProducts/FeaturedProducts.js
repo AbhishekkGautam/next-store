@@ -7,7 +7,7 @@ import {
   priceAfterDiscount,
   putCommasInPrice,
 } from "../../helpers";
-import { toggleFavorite } from "../../services";
+import { addToCartService, toggleFavorite } from "../../services";
 import { useAuth } from "../../context/AuthContext";
 import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
 
@@ -19,7 +19,7 @@ export const FeaturedProducts = () => {
     state: { token },
   } = useAuth();
   const {
-    state: { wishlist },
+    state: { wishlist, cart },
     dispatch,
   } = useWishlistAndCart();
   const featuredProducts = getFeaturedProducts(products);
@@ -55,6 +55,9 @@ export const FeaturedProducts = () => {
                 putCommasInPrice(_priceAfterDiscount);
               const isAlreadyInWishlist = wishlist?.find(
                 wishlistProduct => wishlistProduct._id === id
+              );
+              const isAlreadyInCart = cart?.find(
+                cartProduct => cartProduct._id === id
               );
 
               return (
@@ -104,6 +107,25 @@ export const FeaturedProducts = () => {
                           {discountInPercentage}% OFF
                         </span>
                       </div>
+                      {isAlreadyInCart ? (
+                        <Link
+                          to="/cart"
+                          className="btn btn-primary add-to-cart"
+                        >
+                          Go to Cart
+                        </Link>
+                      ) : (
+                        <button
+                          className="btn btn-primary add-to-cart"
+                          onClick={() =>
+                            token
+                              ? addToCartService(product, token, dispatch)
+                              : navigate("/login")
+                          }
+                        >
+                          Add to Cart
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
