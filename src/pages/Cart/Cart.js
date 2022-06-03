@@ -24,7 +24,7 @@ import { CouponModal } from "../../components";
 export const Cart = () => {
   const [showCouponModal, setShowCouponModal] = useState(false);
   const {
-    state: { cart, totalItemsInCart, applyCoupon },
+    state: { cart, totalItemsInCart, applyCoupon, wishlist },
     dispatch,
   } = useWishlistAndCart();
   const {
@@ -138,6 +138,9 @@ export const Cart = () => {
                           const price_mrp = putCommasInPrice(priceInMrp);
                           const price_after_discount =
                             putCommasInPrice(_priceAfterDiscount);
+                          const isAlreadyInWishlist = wishlist?.find(
+                            item => item._id === id
+                          );
                           return (
                             <div className="card cart-horizontal-card" key={id}>
                               <div className="card-body">
@@ -205,11 +208,12 @@ export const Cart = () => {
                                   className="btn btn-light btn-sm  save-for-later"
                                   onClick={() => {
                                     deleteFromCartService(id, token, dispatch);
-                                    addToWishlistService(
-                                      product,
-                                      token,
-                                      dispatch
-                                    );
+                                    !isAlreadyInWishlist &&
+                                      addToWishlistService(
+                                        product,
+                                        token,
+                                        dispatch
+                                      );
                                   }}
                                 >
                                   Save for later
@@ -316,8 +320,8 @@ export const Cart = () => {
               <div className="cart-message-container">
                 <h3>Hey, it feels so light!</h3>
                 <p>There is nothing in your bag. Let's add some items.</p>
-                <Link className="btn btn-primary-outline" to="/wishlist">
-                  Add Items From Wishlist
+                <Link className="btn btn-primary-outline" to="/products">
+                  Add Items To Cart
                 </Link>
               </div>
             )}

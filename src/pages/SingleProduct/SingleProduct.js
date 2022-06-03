@@ -28,6 +28,13 @@ export const SingleProduct = () => {
     dispatch,
   } = useWishlistAndCart();
 
+  const _priceAfterDiscount = priceAfterDiscount(
+    productInfo?.priceInMrp,
+    productInfo?.discountInPercentage
+  );
+  const price_mrp = putCommasInPrice(productInfo?.priceInMrp);
+  const price_after_discount = putCommasInPrice(_priceAfterDiscount);
+
   useEffect(() => {
     setIsLoading(true);
     (async () => {
@@ -43,20 +50,12 @@ export const SingleProduct = () => {
     })();
   }, [productId]);
 
-  const _priceAfterDiscount = priceAfterDiscount(
-    productInfo?.priceInMrp,
-    productInfo?.discountInPercentage
-  );
-  const price_mrp = putCommasInPrice(productInfo?.priceInMrp);
-  const price_after_discount = putCommasInPrice(_priceAfterDiscount);
-
   useEffect(() => {
-    cart?.find(cartProduct => cartProduct._id === productInfo._id) &&
+    cart.find(cartProduct => cartProduct._id === productInfo._id) &&
       setInCart(true);
-    wishlist?.find(
-      wishlistProduct => wishlistProduct._id === productInfo._id
-    ) && setInWishlist(true);
-  }, [cart, wishlist]);
+    wishlist.find(wishlistProduct => wishlistProduct._id === productInfo._id) &&
+      setInWishlist(true);
+  }, [cart, wishlist, productInfo]);
 
   return (
     <main className="main-wrapper">
@@ -117,23 +116,31 @@ export const SingleProduct = () => {
                     Add to Cart
                   </button>
                 )}
-
-                <button
-                  className="btn btn-secondary-outline add-to-cart"
-                  onClick={() =>
-                    token
-                      ? toggleFavorite(
-                          inWishlist,
-                          token,
-                          productInfo,
-                          productInfo._id,
-                          dispatch
-                        )
-                      : navigate("/login")
-                  }
-                >
-                  {inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
-                </button>
+                {inWishlist ? (
+                  <Link
+                    to="/wishlist"
+                    className="btn btn-secondary-outline add-to-cart"
+                  >
+                    Added to Wishlist
+                  </Link>
+                ) : (
+                  <button
+                    className="btn btn-secondary-outline add-to-cart"
+                    onClick={() =>
+                      token
+                        ? toggleFavorite(
+                            inWishlist,
+                            token,
+                            productInfo,
+                            productInfo._id,
+                            dispatch
+                          )
+                        : navigate("/login")
+                    }
+                  >
+                    Add to Wishlist
+                  </button>
+                )}
               </div>
             </div>
           </div>

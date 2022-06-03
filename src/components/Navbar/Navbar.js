@@ -6,6 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useWishlistAndCart } from "../../context/WishlistAndCartContext";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { useFilter } from "../../context/FilterContext";
+import { RESET_WISHLIST_AND_CART } from "../../reducers/actions";
 
 export const Navbar = () => {
   const {
@@ -15,6 +16,7 @@ export const Navbar = () => {
 
   const {
     state: { wishlist, totalItemsInCart },
+    dispatch: cartDispatch,
   } = useWishlistAndCart();
 
   const navigate = useNavigate();
@@ -40,6 +42,12 @@ export const Navbar = () => {
       dispatch({ type: "FILTER_BY_SEARCH", payload: searchQuery });
       navigate("/products");
     }
+  };
+
+  const logOut = () => {
+    logoutHandler();
+    cartDispatch({ type: RESET_WISHLIST_AND_CART });
+    navigate("/");
   };
 
   return (
@@ -120,7 +128,7 @@ export const Navbar = () => {
           </ul>
           {isLoggedIn && (
             <button
-              onClick={logoutHandler}
+              onClick={logOut}
               className="btn btn-secondary btn-sm ml-1 hide-on-mobile"
             >
               Logout
